@@ -188,3 +188,32 @@ const letScopeFunc = () => {
   // console.log(data);  // Reference Error: data is not defined.
 };
 letScopeFunc();
+
+// const doSomething = (callback) => {
+//   console.log("do something function");
+//   const v = 10;
+//   callback(v);
+// };
+
+// const doSomethingCallback = (number) => {
+//   console.log("doSomethingCallback number:", number);
+// };
+
+const doSomething = (number) => {
+  console.log(`number=${number}`);
+};
+
+doSomething(10);
+
+const doSomethingPromise = new Promise((resolve, reoject) => {
+  const success = true;
+  if (success) resolve("ok");
+  else rejects("fail");
+});
+
+doSomethingPromise.then((result) => {
+  console.log("in then");
+  console.log(result);
+});
+
+const doSomethingAsync = async () => {};
