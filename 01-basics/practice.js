@@ -4,6 +4,10 @@
  *   Two kinds of Types: `primitive types` and `object types`
  *   `null` vs `undefined`
  *   What happend if an array index is overflowed.
+ *   Objects are always passed by reference.
+ *   `var` vs `let as a variable scrop perspective
+ *   Problems and solution of callback chain
+ *   About `promise` object
  *
  * Note:
  *   loosly typed language
@@ -79,3 +83,108 @@ for (let i = 0; i < loop_arr.length; i++)
 // C++'s for...in
 // for (const value in loop_arr)
 for (const value of loop_arr) console.log(value);
+
+// Functions
+function foo() {
+  console.log("it's function foo");
+}
+function bar(p, q) {
+  if (typeof p === "undefined") console.log("no p");
+}
+
+let ret = bar();
+console.log(`ret = ${ret}`); // Unless there is a return statement, undefined is retured.
+
+// Arrow functions
+// Anonymous!
+// like a lambda ??
+let foo2 = () => {
+  console.log("anonymous function foo");
+};
+let bar2 = (p, q) => {
+  if (typeof p === "undefined") console.log("no p");
+};
+
+foo2();
+
+// Objects
+// Create a new object.
+// others methods; new Object(), Object.create()
+const car = {};
+
+// Define constructor
+function CreateCar(brand, model) {
+  this.brand = brand;
+  this.model = model;
+}
+function Car(brand, model) {
+  this.brand = brand;
+  this.model = model;
+}
+
+// const myCar = CreateCar("ford", "explorer");   // Invalid, use `new` keyword
+const myCar = new CreateCar("ford", "explorer");
+console.log(myCar);
+
+const myCar2 = new Car("hyundai", "avante");
+console.log(myCar2);
+
+const anotherCar = {
+  brand: "hyundai",
+  model: "sonata",
+  // Use a regular function as a class method because of this.
+  printModel: function () {
+    // Not arrow function!
+    console.log(`model is ${this.model}`); // use this to capture the class object
+  },
+};
+console.log(anotherCar);
+anotherCar.printModel();
+
+// JavaScript's class
+// - Has a constructor method
+// - Support inheritance also with 'extends' keyword.
+class Person {
+  constructor(name) {
+    this.name = name;
+    console.log("Person ctor with name:", this.name);
+  }
+  // No desctructor unlike C++
+
+  // class method has no return type.
+  hello(friend = "guys") {
+    console.log("Hello,", friend, "my name is", this.name);
+  }
+}
+
+const me = new Person("seojun");
+me.hello();
+me.hello("github");
+
+// Asynchronous Programming
+function timeoutCallback() {
+  console.log("inside the timer callback function");
+}
+setTimeout(timeoutCallback);
+console.log("right after calling setTimeout");
+
+setTimeout(() => {
+  console.log("inside the timer callback arrow function");
+}, 1000);
+console.log("right after calling setTimeout with arrow function");
+
+const varScopeFunc = () => {
+  if (true) {
+    var data = "data";
+  }
+  console.log(data);
+};
+varScopeFunc();
+
+const letScopeFunc = () => {
+  if (true) {
+    let data = "data";
+  }
+  // console.log(data);  // Reference Error: data is not defined.
+};
+letScopeFunc();
