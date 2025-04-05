@@ -7,29 +7,23 @@ $ npm -v
 10.9.2
 ```
 
-## How to run
+Run JavaScript by Node
 ```shell
 $ node practice.js
 ```
 
-## 1. JavaScript Basics
-### Variables and Types
+```shell
+$ npm install -g typescript
+$ tsc -v
+```
 
-### Functions
+[Optional]
+```shell
+# Make tsconfig.json
+$ tsc --init
+```
 
-### Array and Iteration
-
-### Object
-
-### Conditional Statement
-
-### Async
-
-
-## 2. Node.js + Express
-
-
-## 3. Integarte with Database
-
-
-## 4. Create a front view(React)
+Run TypeScript
+```shell
+$ tsc && node dist/app.js
+```

@@ -11,7 +11,8 @@ $ sudo apt-get install -y mongodb-org
 $ sudo service mongod start
 ```
 
-Edit /etc/mongod.conf to allow remote access
+Edit /etc/mongod.conf 
+- to allow remote access
 ```shell
 $ sudo vi /etc/mongod.conf
 ```
@@ -19,6 +20,21 @@ $ sudo vi /etc/mongod.conf
 #  bindIp: 127.0.0.1
   bindIp: 0.0.0.0
 ```
+- change data directory
+```shell
+$ sudo mkdir /data/mongodb
+$ sudo chown -R mongodb:mongodb /data/mongodb
+$ sudo vi /etc/mongod.conf
+storage:
+  dbPath: /data/mongodb
+$ sudo systemctl restart mongod
+$ ls -al /data/mongodb
+```
+
+Connect URI
+- mongodb://<host>:<port>/<database>
+
+
 
 MongoDB CLI on macOS
 ```shell
@@ -30,6 +46,33 @@ $ brew install mongosh
 - admin
 - config
 - local
+
+## PostgreSQL Note
+install on Debian
+```shell
+$ sudo apt install postgresql
+```
+
+existing directory
+```shell
+$ sudo apt install rsync
+$ sudo ls /var/lib/postgresql/15/main/
+$ sudo rsync -av /var/lib/postgresql/14/main/ /data/postgresql/
+$ sudo ls /data/postgresql
+$ sudo chown -R postgres:postgres /data/postgresql
+$ sudo vi /etc/postgresql/15/main/postgresql.conf
+data_directory = '/data/postgresql'
+$ sudo systemctl start postgresql
+$ sudo -u postgres psql -c "SHOW data_directory;"
+```
+
+connection
+```shell
+# sudo vi /etc/postgresql/15/main/postgresql.conf
+listen_addresses = '*'
+# sudo vi /etc/postgresql/15/main/pg_hba.conf
+host    all             all             0.0.0.0/0               scram-sha-256
+```
 
 
 ## With Node.js/Express Note
